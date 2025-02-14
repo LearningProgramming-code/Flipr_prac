@@ -3,6 +3,8 @@ import './App.css';
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { getDatabase, ref, set, get } from "firebase/database";
+import { useState } from 'react';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -12,6 +14,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyCPAhT-WiVlj0b4NeFtAtPasPeLSky7wf0",
   authDomain: "test-43dea.firebaseapp.com",
   projectId: "test-43dea",
+  databaseURL:"https://test-43dea-default-rtdb.firebaseio.com/",
   storageBucket: "test-43dea.firebasestorage.app",
   messagingSenderId: "553955933396",
   appId: "1:553955933396:web:7471cf7ed38f3b405d8f41",
@@ -20,9 +23,27 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const database = getDatabase(app)
 const analytics = getAnalytics(app);
 
+
 function App() {
+  const [input,setInput] = useState('')
+  const userID = '1';
+  const userData = {
+    Name    : 'John',
+    Email   : 'John@gmail.com',
+    Gender  : 'Male'
+  }
+  const userRef = ref(database, 'users/'+userID)
+  set(userRef,userData)
+    .then(()=>{
+      // prompt("Hurray!");
+    })
+    .catch(()=>{
+      // prompt("Oh no!");
+    })  
+    console.log(input)
   return (
     <div className="App">
       <header className="App-header">
@@ -41,8 +62,17 @@ function App() {
           Learn React
         </a> */}
       </header>
-      <div className='App-body'> 
-        <input type='text' placeholder='Please Enter information you want to store' className='querybox'/>
+
+      <div className='App-body'>  
+        <input
+          type='text'
+          id = "data"
+          placeholder='Please Enter information you want to store'
+          className='querybox'
+          value ={input}
+          onChange={(e)=>{
+            
+            setInput(e.target.value)}}/>
     </div>
     </div>
   );
