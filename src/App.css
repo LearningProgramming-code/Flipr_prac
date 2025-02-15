@@ -2,7 +2,7 @@ body, html {
   margin: 0;
   height: 100%;
   /* background-color: black;  */
-  background: linear-gradient(to bottom, red 50%, black 50%);
+  /* background: linear-gradient(to bottom, red 50%, black 50%); */
 }
 .App {
   text-align: center;
@@ -55,17 +55,27 @@ body, html {
   justify-content: center;
 }
 .querybox {
-  align-items: center;
-  min-height: 5vh;
-  min-width: 40vh;
-  margin-bottom: 100px;
+  text-align: center;
+  font-size: x-large;
+  align-items: center;  
+  min-height: 10vh;
+  min-width: 70vh;
+  margin-bottom: 200px;
+  margin-right: 50px;
   border-radius: 30px;
 }
 .querybox::placeholder{
   text-align: center;
+  font-size: large;
 }
 .querybox:disabled{
   /* opacity: 1000; */
   background-color: white;
 
+}
+.label{
+  color:antiquewhite;
+  margin-bottom: 300px;
+  align-items: center;
+  justify-content: center;
 }

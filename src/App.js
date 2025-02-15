@@ -3,6 +3,7 @@ import './App.css';
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 // import { getAnalytics } from "firebase/analytics";
+import * as React from 'react';
 import { getDatabase, ref, set } from "firebase/database";
 import { useState } from 'react';
 // TODO: Add SDKs for Firebase products that you want to use
@@ -28,28 +29,47 @@ const database = getDatabase(app)
 
 
 function App() {
-  const [isDisabled,setDisabled] = useState(false)
+
+  const [isDisabled,setDisabled] = useState(false);
   const [input,setInput] = useState('');
-  const userID = prompt("What's your name?");
-  const handleKeydown = (e) => {
+  // const[userID,setUserId] = useState(null);
+//   useEffect(()=>{
+//   setTimeout(()=>{
+
+// },1000)},[]);
+  // setUserId(userID)
+
+  // const userID = "Aryan";
+   const handleKeydown = async (e) => {
     if(e.key === 'Enter'){
-      setInput('');
-      setDisabled(true);
+      try {
+        const userID = prompt("What's your name?");
+        // setUserId(id);
+        const userData = {
+          Name: input,
+          // Email: 'John@gmail.com',
+          // Gender: 'Male'
+        };
+        // alert(userID);
+        const userRef = ref(database, 'users/' + userID);
+        if(userID !== "" && input !== ""){
+        // alert(userID);
+        await set(userRef, userData);
+        }
+        
+        setInput('');
+        setDisabled(true);
+        
+        // Optional: Enable input after some time
+        setTimeout(() => setDisabled(false), 2000);
+      } catch (error) {
+        alert("Couldn't register your data");
+      };
+      // setDisabled(true);
     }
   }
- 
-  const userData = {
-    Name    : input,
-    Email   : 'John@gmail.com',
-    Gender  : 'Male'
-  }
-  const userRef = ref(database, 'users/'+userID)
-  set(userRef,userData)
-    .catch(()=>{
-      // prompt("Oh no!");
-      alert("Couldn't register your data")
-    })  
     // console.log(input)
+  // class MainPage extends React.Component{
   return (
     <div className="App">
       <header className="App-header">
@@ -70,6 +90,9 @@ function App() {
       </header>
 
       <div className='App-body'>  
+        {/* <label className='label'>
+          Data:
+        </label> */}
         <input
           type='text'
           id = "data"
@@ -85,6 +108,6 @@ function App() {
     </div>
     </div>
   );
+//  }
 }
-
 export default App;
