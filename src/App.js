@@ -3,7 +3,7 @@ import './App.css';
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getDatabase, ref, set, get } from "firebase/database";
+import { getDatabase, ref, set } from "firebase/database";
 import { useState } from 'react';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -24,7 +24,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app)
-const analytics = getAnalytics(app);
+// c  onst analytics = getAnalytics(app);
 
 
 function App() {
@@ -32,7 +32,7 @@ function App() {
   const [input,setInput] = useState('');
   const userID = prompt("What's your name?");
   const handleKeydown = (e) => {
-    if(e.key == 'Enter'){
+    if(e.key === 'Enter'){
       setInput('');
       setDisabled(true);
     }
