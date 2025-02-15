@@ -28,22 +28,28 @@ const analytics = getAnalytics(app);
 
 
 function App() {
-  const [input,setInput] = useState('')
-  const userID = '1';
+  const [isDisabled,setDisabled] = useState(false)
+  const [input,setInput] = useState('');
+  const userID = prompt("What's your name?");
+  const handleKeydown = (e) => {
+    if(e.key == 'Enter'){
+      setInput('');
+      setDisabled(true);
+    }
+  }
+ 
   const userData = {
-    Name    : 'John',
+    Name    : input,
     Email   : 'John@gmail.com',
     Gender  : 'Male'
   }
   const userRef = ref(database, 'users/'+userID)
   set(userRef,userData)
-    .then(()=>{
-      // prompt("Hurray!");
-    })
     .catch(()=>{
       // prompt("Oh no!");
+      alert("Couldn't register your data")
     })  
-    console.log(input)
+    // console.log(input)
   return (
     <div className="App">
       <header className="App-header">
@@ -71,8 +77,11 @@ function App() {
           className='querybox'
           value ={input}
           onChange={(e)=>{
-            
-            setInput(e.target.value)}}/>
+            setInput(e.target.value);
+          }}
+          onKeyDown={handleKeydown}
+          disabled = {isDisabled}
+            />
     </div>
     </div>
   );

@@ -64,3 +64,8 @@ body, html {
 .querybox::placeholder{
   text-align: center;
 }
+.querybox:disabled{
+  /* opacity: 1000; */
+  background-color: white;
+
+}
